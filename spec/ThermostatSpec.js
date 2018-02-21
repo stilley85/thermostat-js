@@ -49,6 +49,14 @@ describe ('Thermostat', function(){
     expect(function(){thermostat.up();}).toThrow(new Error("At maximum temperature, turn off power saving to go higher."));
   });
 
+  it("The maximum temperature is 25 if power saving mode is off", function(){
+    thermostat.powerSavingModeOff();
+    for (var i = 1; i < 6; i++){
+      thermostat.up()
+    }
+    expect(function(){thermostat.up();}).toThrow(new Error("At maximum temperature."));
+  });
+
   it("powerSavingModeOn turns on power saving mode", function(){
     thermostat.powerSavingModeOff();
     thermostat.powerSavingModeOn();
