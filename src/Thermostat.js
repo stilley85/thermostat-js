@@ -1,9 +1,22 @@
 Thermostat = function(){
   this.temperature = 20
+  this.powerSaving = true
 };
 
 Thermostat.prototype.up = function(){
-  this.temperature += 1
+  if (this.powerSaving === true) {
+    if (this.temperature >= 18) {
+      throw new Error("At maximum temperature, turn off power saving to go higher.")
+    } else {
+      this.temperature += 1
+    }
+  } else {
+    if (this.temperature >= 25) {
+      throw new Error("At maximum temperature.")
+    } else {
+      this.temperature += 1
+    }
+  }
 };
 
 Thermostat.prototype.down = function(){
@@ -20,4 +33,12 @@ Thermostat.prototype.isMinimum = function(temperature){
   } else {
     return false;
   }
+};
+
+Thermostat.prototype.powerSavingModeOn = function(){
+  this.powerSaving = true
+};
+
+Thermostat.prototype.powerSavingModeOff = function(){
+  this.powerSaving = false
 };

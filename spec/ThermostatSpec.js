@@ -13,6 +13,7 @@ describe ('Thermostat', function(){
   });
 
   it("increase raises the temperature by 1", function(){
+    thermostat.powerSavingModeOff();
     thermostat.up();
     expect(thermostat.temperature).toEqual(21);
   });
@@ -32,10 +33,31 @@ describe ('Thermostat', function(){
   });
 
   it("10 is the minimum temperature", function(){
-    for (var i = 1; i <=10; i++){
+    for (var i = 1; i < 11; i++){
       thermostat.down()
     }
     expect(function(){thermostat.down();}).toThrow(new Error("Currently at minimum temperate, cannot go lower."));
+  });
+
+  it("The maximum temperature is 18 if power saving mode is on", function(){
+    thermostat.powerSavingModeOff();
+    for (var i = 1; i < 4; i++){
+      thermostat.down()
+    }
+    thermostat.powerSavingModeOn();
+    thermostat.up()
+    expect(function(){thermostat.up();}).toThrow(new Error("At maximum temperature, turn off power saving to go higher."));
+  });
+
+  it("powerSavingModeOn turns on power saving mode", function(){
+    thermostat.powerSavingModeOff();
+    thermostat.powerSavingModeOn();
+    expect(thermostat.powerSaving).toEqual(true);
+  });
+
+  it("powerSavingModeOff turns off power saving mode", function(){
+    thermostat.powerSavingModeOff();
+    expect(thermostat.powerSaving).toEqual(false);
   });
 
 });
