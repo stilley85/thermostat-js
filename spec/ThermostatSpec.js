@@ -39,19 +39,16 @@ describe ('Thermostat', function(){
     expect(function(){thermostat.down();}).toThrow(new Error("Currently at minimum temperate, cannot go lower."));
   });
 
-  it("The maximum temperature is 18 if power saving mode is on", function(){
-    thermostat.powerSavingModeOff();
-    for (var i = 1; i < 4; i++){
-      thermostat.down()
+  it("The maximum temperature is 25 if power saving mode is on", function(){
+    for (var i = 1; i < 6; i++){
+      thermostat.up()
     }
-    thermostat.powerSavingModeOn();
-    thermostat.up()
     expect(function(){thermostat.up();}).toThrow(new Error("At maximum temperature, turn off power saving to go higher."));
   });
 
-  it("The maximum temperature is 25 if power saving mode is off", function(){
+  it("The maximum temperature is 32 if power saving mode is off", function(){
     thermostat.powerSavingModeOff();
-    for (var i = 1; i < 6; i++){
+    for (var i = 1; i < 13; i++){
       thermostat.up()
     }
     expect(function(){thermostat.up();}).toThrow(new Error("At maximum temperature."));

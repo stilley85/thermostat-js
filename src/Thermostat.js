@@ -5,13 +5,13 @@ Thermostat = function(){
 
 Thermostat.prototype.up = function(){
   if (this.powerSaving === true) {
-    if (this.temperature >= 18) {
+    if (this.temperature >= 25) {
       throw new Error("At maximum temperature, turn off power saving to go higher.")
     } else {
       this.temperature += 1
     }
   } else {
-    if (this.temperature >= 25) {
+    if (this.temperature >= 32) {
       throw new Error("At maximum temperature.")
     } else {
       this.temperature += 1
